@@ -1,13 +1,114 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: rgba(214, 214, 230, 0.5);
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg) scale(0.5);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg) scale(0.8);
+  }
+}
+
+.wheel {
+  animation: rotating 2s linear infinite;
+  animation-direction: alternate;
+}
+
+.flex {
+  display: flex;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.px-1 {
+  font-size: 1rem;
+}
+
+.px-2 {
+  font-size: 2rem;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.p-10{
+  padding: 10px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.text-bold{
+  font-weight: bold;
+}
+
+.fw-500{
+  font-weight: 500;
+}
+
+.b-radius-10{
+  border-radius: 10px;
+}
+.b-radius-5{
+  border-radius: 5px;
+}
+
+.color-blue{
+  color: #8686ea;
+}
+
+.color-blue-bold{
+  color: rgb(37, 64, 238);
+}
+
+.b-td{
+  border: 2px solid #bfdebf!important;
+}
+
+.app-input {
+  width: 50%;
+  height: 25px;
+  font-size: 1rem;
+  outline: none;
+  padding: 3px 10px;
+  background: #f1d9d9;
+}
+
+.app-button {
+  padding: 10px 25px;
+  margin: 5px;
+  outline: none;
+  background: #ff3a3a;
+  border: 2px solid #bfdebf;
 }

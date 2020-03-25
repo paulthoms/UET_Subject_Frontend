@@ -7,6 +7,33 @@ import { increaseCount, updateAllDataSubjectUET } from "./redux/reducerAndAction
 
 const qs = require("qs");
 
+const styleDayOfWeek = {
+  background: "#ff3a3a"
+}
+
+const styleSubject = {
+  background: "#12d412"
+}
+
+const stylePending = {
+  height: "100%",
+  width: "100%",
+  position: "fixed",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  background: "rgba(174, 174, 235, 0.5)",
+  flexDirection: "column"
+}
+
+const styleWheel = {
+  height: "100px",
+  width: "100px",
+  border: "8px solid",
+  borderRadius: "50%",
+  borderStyle: "dashed"
+}
+
 function getAPI(str, callback) {
   axios.defaults.headers["Content-Type"] =
     "application/x-www-form-urlencoded";
@@ -57,6 +84,7 @@ function App() {
   const dispatch = useDispatch();
   const increase = useCallback(() => dispatch(increaseCount()), [dispatch]);
   const updateAllDataSubject = useCallback(() => dispatch(updateAllDataSubjectUET(allSubject)), [dispatch]);
+  const DAY_OF_WEEK = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Sunday"];
 
   useEffect(() => {
 
@@ -149,58 +177,84 @@ function App() {
     );
   }
 
+  function pendingWait() {
+    return (
+      <div style={stylePending} >
+        <div style={{ margin: "10px" }} className="color-blue-bold text-bold" > Please wait ... </div>
+        <div style={styleWheel} className="wheel color-blue" >
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       {
-        pending ? "Pending" :
+        pending ? pendingWait() :
           <>
-            Your MSSV:
-            <input onChange={(e) => { handChangeMssv(e) }} />
-            <button onClick={handleGetData} >
-              Get TKB
-            </button>
 
-            {
-              isGetingData ? "System is getting data" :
-                <>
-                  {
-                    loading ?
-                      <table>
-                        <tr>
-                          <td style={{ border: "1px solid" }}>Monday</td>
-                          <td style={{ border: "1px solid" }}>Tuesday</td>
-                          <td style={{ border: "1px solid" }}>Wednesday</td>
-                          <td style={{ border: "1px solid" }}>Thursday</td>
-                          <td style={{ border: "1px solid" }}>Friday</td>
-                          <td style={{ border: "1px solid" }}>Saturday</td>
-                          <td style={{ border: "1px solid" }}>Sunday</td>
-                        </tr>
-                        {
-                          TKB.map((item, index) => {
-                            return (
-                              <tr key={index} >
-                                {
-                                  item.map((obj) => {
-                                    if (obj.stt == undefined) {
-                                      return <td></td>;
-                                    }
-                                    else {
-                                      return (
-                                        <td style={{ border: "1px solid" }} >
-                                          {renderSubject(obj)}
-                                        </td>
-                                      );
-                                    }
-                                  })
-                                }
-                              </tr>
-                            );
-                          })
-                        }
-                      </table> : ""
-                  }
-                </>
-            }
+            <div className="flex center column w-100 mt-20" >
+              <div className="px-1 text-bold" >
+                Your MSSV:
+              </div>
+              <div className="flex center row w-100" >
+                <input className="app-input b-radius-10" onChange={(e) => { handChangeMssv(e) }} />
+                <button className="app-button b-radius-10 text-bold" onClick={handleGetData} >
+                  Get TKB
+              </button>
+              </div>
+            </div>
+
+            <div className="flex center column w-100 mt-20" >
+              {
+                isGetingData ?
+                  <>
+                    <div style={styleWheel} className="wheel color-blue" >
+                    </div>
+                  </> :
+                  <>
+                    {
+                      loading ?
+                        <table>
+                          <tr>
+
+                            {
+                              DAY_OF_WEEK.map((item) => {
+                                return (
+                                  <td style={styleDayOfWeek} className = "b-td b-radius-5 p-10 text-bold" >{item}</td>
+                                );
+                              })
+                            }
+                          </tr>
+                          {
+                            TKB.map((item, index) => {
+                              return (
+                                <tr key={index} >
+                                  {
+                                    item.map((obj) => {
+                                      if (obj.stt == undefined) {
+                                        return <td></td>;
+                                      }
+                                      else {
+                                        return (
+                                          <td style={styleSubject} className = "b-td b-radius p-10 fw-500"  >
+                                            {renderSubject(obj)}
+                                          </td>
+                                        );
+                                      }
+                                    })
+                                  }
+                                </tr>
+                              );
+                            })
+                          }
+                        </table> : ""
+                    }
+                  </>
+              }
+            </div>
+
+
           </>
       }
     </div>
