@@ -85,7 +85,7 @@ function App() {
   const dispatch = useDispatch();
   const increase = useCallback(() => dispatch(increaseCount()), [dispatch]);
   const updateAllDataSubject = useCallback(() => dispatch(updateAllDataSubjectUET(allSubject)), [dispatch]);
-  const DAY_OF_WEEK = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Sunday"];
+  const DAY_OF_WEEK = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday ","Sunday"];
 
   useEffect(() => {
 
@@ -229,7 +229,7 @@ function App() {
                             <div className="text-bold p-10" >{infoStudent.dob}</div>
                             <div className="text-bold p-10" >{infoStudent.class}</div>
                           </div>
-                          <table>
+                          <table className = "w-100" >
                             <tr>
 
                               {
