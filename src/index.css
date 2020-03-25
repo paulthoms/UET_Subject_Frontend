@@ -69,6 +69,14 @@ code {
   margin-top: 20px;
 }
 
+.mt-10{
+  margin-top: 10px;
+}
+
+.mb-10{
+  margin-bottom: 10px;
+}
+
 .text-bold{
   font-weight: bold;
 }

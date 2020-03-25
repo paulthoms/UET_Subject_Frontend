@@ -80,6 +80,7 @@ function App() {
   var [loading, setLoading] = useState(false);
   var [pending, setPending] = useState(true);
   var [isGetingData, setIsGetingData] = useState(false);
+  var [infoStudent, setInfoStudent] = useState({});
   var [TKB, setTKB] = useState([]);
   const dispatch = useDispatch();
   const increase = useCallback(() => dispatch(increaseCount()), [dispatch]);
@@ -113,6 +114,13 @@ function App() {
     setIsGetingData(true);
     postAPI("https://uet-subject.herokuapp.com/get-data-subject-from-mssv", mssv, function (res) {
       getData(res.data);
+
+      setInfoStudent({
+        name: res.data[0].name,
+        dob: res.data[0].dateOfbirth,
+        class: res.data[0].class
+      });
+
       setIsGetingData(false);
     })
 
@@ -205,7 +213,7 @@ function App() {
               </div>
             </div>
 
-            <div className="flex center column w-100 mt-20" >
+            <div className="flex center column w-100 mt-10" >
               {
                 isGetingData ?
                   <>
@@ -215,40 +223,47 @@ function App() {
                   <>
                     {
                       loading ?
-                        <table>
-                          <tr>
+                        <>
+                          <div className="flex row mb-10" >
+                            <div className="text-bold p-10 " >{infoStudent.name}</div>
+                            <div className="text-bold p-10" >{infoStudent.dob}</div>
+                            <div className="text-bold p-10" >{infoStudent.class}</div>
+                          </div>
+                          <table>
+                            <tr>
 
+                              {
+                                DAY_OF_WEEK.map((item) => {
+                                  return (
+                                    <td style={styleDayOfWeek} className="b-td b-radius-5 p-10 text-bold" >{item}</td>
+                                  );
+                                })
+                              }
+                            </tr>
                             {
-                              DAY_OF_WEEK.map((item) => {
+                              TKB.map((item, index) => {
                                 return (
-                                  <td style={styleDayOfWeek} className = "b-td b-radius-5 p-10 text-bold" >{item}</td>
+                                  <tr key={index} >
+                                    {
+                                      item.map((obj) => {
+                                        if (obj.stt == undefined) {
+                                          return <td></td>;
+                                        }
+                                        else {
+                                          return (
+                                            <td style={styleSubject} className="b-td b-radius p-10 fw-500"  >
+                                              {renderSubject(obj)}
+                                            </td>
+                                          );
+                                        }
+                                      })
+                                    }
+                                  </tr>
                                 );
                               })
                             }
-                          </tr>
-                          {
-                            TKB.map((item, index) => {
-                              return (
-                                <tr key={index} >
-                                  {
-                                    item.map((obj) => {
-                                      if (obj.stt == undefined) {
-                                        return <td></td>;
-                                      }
-                                      else {
-                                        return (
-                                          <td style={styleSubject} className = "b-td b-radius p-10 fw-500"  >
-                                            {renderSubject(obj)}
-                                          </td>
-                                        );
-                                      }
-                                    })
-                                  }
-                                </tr>
-                              );
-                            })
-                          }
-                        </table> : ""
+                          </table>
+                        </> : ""
                     }
                   </>
               }
