@@ -240,12 +240,22 @@ function App() {
     setIsCollapse(false);
   }
 
+  function getTime(lession){
+    var arr = lession.split("-");
+    // console.log(arr);
+    for(var i = 0; i<arr.length; i++){
+      arr[i] = parseInt(arr[i])+6;
+    }
+    return arr[0]+"h-"+arr[1]+"h";
+  }
+
   function renderSubject(obj) {
     return (
       <div>
         <div className="px-90-prs">{obj.name}</div>
         <div className="px-90-prs" >Tiết: {obj.lession}</div>
-        <div className="px-90-prs" >{obj.classRoom}</div>
+        <div className="px-90-prs" >Thời gian: {getTime(obj.lession)} </div>
+        <div className="px-90-prs" >Phòng:{obj.classRoom}</div>
         <div className="px-90-prs" >Nhóm: {obj.group}</div>
       </div>
     );
