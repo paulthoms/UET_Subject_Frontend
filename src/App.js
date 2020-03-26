@@ -29,7 +29,7 @@ const stylePending = {
 const styleWheel = {
   height: "100px",
   width: "100px",
-  border: "8px solid",
+  border: "10px solid",
   borderRadius: "50%",
   borderStyle: "dashed"
 }
@@ -42,7 +42,7 @@ function getAPI(str, callback) {
     callback(_res);
   })
     .catch(function (error) {
-      console.log(error);
+      // console.log(error);
       callback([]);
     });
 }
@@ -101,7 +101,7 @@ function App() {
     });
 
     function handleResize() {
-      console.log(getResizeScreen());
+      // console.log(getResizeScreen());
       setSizeWidth(getResizeScreen);
     }
 
@@ -176,7 +176,7 @@ function App() {
 
     }
 
-    console.log(arrTKB);
+    // console.log(arrTKB);
 
     setTKB(arrTKB);
     setLoading(true);
@@ -184,7 +184,7 @@ function App() {
   }
 
   function handChangeMssv(e) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setMssv(e.target.value);
   }
 
