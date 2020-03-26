@@ -214,7 +214,7 @@ function App() {
       {
         pending ? pendingWait() :
           <>
-            <div className="px-2 text-bold color-blue-bold-medium" >Thời Khóa Biểu</div>
+            <div className="px-2 text-bold color-blue-bold-medium mt-10" >Thời Khóa Biểu</div>
             <div className="flex center column w-100 mt-20" >
               <div className="px-1 text-bold" >
                 Mã số sinh viên UET:
