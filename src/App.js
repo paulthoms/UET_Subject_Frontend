@@ -342,7 +342,7 @@ function App() {
 
   return (
     <div className="App">
-      {pendingWait()}
+      {/* {pendingWait()} */}
       {
         pending ? pendingWait() :
           <>
