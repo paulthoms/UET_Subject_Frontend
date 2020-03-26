@@ -96,6 +96,10 @@ code {
   color: #8686ea;
 }
 
+.color-blue-bold-medium {
+  color: rgb(103, 121, 233);
+}
+
 .color-blue-bold{
   color: rgb(37, 64, 238);
 }
@@ -119,4 +123,11 @@ code {
   outline: none;
   background: #ff3a3a;
   border: 2px solid #bfdebf;
+}
+
+@media screen and (max-width: 200px){
+  .app-button {
+   padding: 0!important;
+  }
+  
 }

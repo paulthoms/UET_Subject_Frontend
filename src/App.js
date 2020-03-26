@@ -85,7 +85,12 @@ function App() {
   const dispatch = useDispatch();
   const increase = useCallback(() => dispatch(increaseCount()), [dispatch]);
   const updateAllDataSubject = useCallback(() => dispatch(updateAllDataSubjectUET(allSubject)), [dispatch]);
-  const DAY_OF_WEEK = ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7","Chủ nhật"];
+  const DAY_OF_WEEK = ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"];
+  const [sizeWidth, setSizeWidth] = useState(window.innerWidth);
+
+  function getResizeScreen() {
+    return window.innerWidth;
+  }
 
   useEffect(() => {
 
@@ -94,6 +99,15 @@ function App() {
       setDataAllSubject(res.data);
       setPending(false);
     });
+
+    function handleResize() {
+      console.log(getResizeScreen());
+      setSizeWidth(getResizeScreen);
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    return () => { window.addEventListener('resize', handleResize) }
 
 
   }, []);
@@ -200,16 +214,22 @@ function App() {
       {
         pending ? pendingWait() :
           <>
-
+            <div className="px-2 text-bold color-blue-bold-medium" >Thời Khóa Biểu</div>
             <div className="flex center column w-100 mt-20" >
               <div className="px-1 text-bold" >
                 Mã số sinh viên UET:
               </div>
               <div className="flex center row w-100" >
                 <input className="app-input b-radius-10" onChange={(e) => { handChangeMssv(e) }} />
-                <button className="app-button b-radius-10 text-bold" onClick={handleGetData} >
-                  Tạo thời khóa biểu
-              </button>
+                {
+                  sizeWidth > 700 ? <button className="app-button b-radius-10 text-bold" onClick={handleGetData} >
+                    Tạo thời khóa biểu
+                </button>
+                    :
+                    <button className="app-button b-radius-10 text-bold" onClick={handleGetData} >
+                      Tạo TKB
+                </button>
+                }
               </div>
             </div>
 
@@ -229,7 +249,7 @@ function App() {
                             <div className="text-bold p-10" >{infoStudent.dob}</div>
                             <div className="text-bold p-10" >{infoStudent.class}</div>
                           </div>
-                          <table className = "w-100" >
+                          <table className="w-100" >
                             <tr>
 
                               {
