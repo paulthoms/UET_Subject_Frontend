@@ -181,6 +181,7 @@ function App() {
     // console.log(arrTKB);
 
     setTKB(arrTKB);
+    setIsCollapse(false);
     setLoading(true);
 
   }
