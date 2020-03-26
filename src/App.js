@@ -87,6 +87,8 @@ function App() {
   const updateAllDataSubject = useCallback(() => dispatch(updateAllDataSubjectUET(allSubject)), [dispatch]);
   const DAY_OF_WEEK = ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"];
   const [sizeWidth, setSizeWidth] = useState(window.innerWidth);
+  const [isCollapse, setIsCollapse] = useState(false);
+  const [TKB_Collapse, setTKBCollapse] = useState([]);
 
   function getResizeScreen() {
     return window.innerWidth;
@@ -188,14 +190,88 @@ function App() {
     setMssv(e.target.value);
   }
 
+  function collapseMatrix(arr) {
+
+    var a = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+    ];
+
+    for (var i = 0; i < a.length; i++) {
+      for (var j = 0; j < a[0].length; j++) {
+        a[i][j] = arr[i][j];
+      }
+    }
+
+    for (var i = 0; i < a.length; i++) {
+      for (var j = 0; j < a[0].length; j++) {
+        if (a[i][j] != 0) {
+          for (var k = 0; k < i; k++) {
+            if (a[k][j] == 0) {
+              let tmp = a[i][j];
+              a[i][j] = a[k][j];
+              a[k][j] = tmp;
+            }
+          }
+        }
+      }
+    }
+
+    return a;
+  }
+
+  function handleCollapse() {
+    setIsCollapse(true);
+    setTKBCollapse(collapseMatrix(TKB));
+  }
+
+  function handleCancelCollapse() {
+    setIsCollapse(false);
+  }
+
   function renderSubject(obj) {
     return (
       <div>
-        <div className = "px-90-prs">{obj.name}</div>
-        <div className = "px-90-prs" >Tiết: {obj.lession}</div>
-        <div className = "px-90-prs" >{obj.classRoom}</div>
-        <div className = "px-90-prs" >Nhóm: {obj.group}</div>
+        <div className="px-90-prs">{obj.name}</div>
+        <div className="px-90-prs" >Tiết: {obj.lession}</div>
+        <div className="px-90-prs" >{obj.classRoom}</div>
+        <div className="px-90-prs" >Nhóm: {obj.group}</div>
       </div>
+    );
+  }
+
+  function renderTKB(TKB) {
+    return (
+      TKB.map((item, index) => {
+        return (
+          <tr key={index} >
+            {
+              item.map((obj) => {
+                if (obj.stt == undefined) {
+                  return <td></td>;
+                }
+                else {
+                  return (
+                    <td style={styleSubject} className="b-td b-radius-5 p-10 fw-500"  >
+                      {renderSubject(obj)}
+                    </td>
+                  );
+                }
+              })
+            }
+          </tr>
+        );
+      })
     );
   }
 
@@ -222,14 +298,22 @@ function App() {
               <div className="flex center row w-100" >
                 <input className="app-input b-radius-10" onChange={(e) => { handChangeMssv(e) }} />
                 {
-                  sizeWidth > 700 ? <button className="app-button b-radius-10 text-bold" onClick={handleGetData} >
-                    Tạo thời khóa biểu
-                </button>
+                  sizeWidth > 700 ?
+                    <button className="app-button b-radius-10 text-bold" onClick={handleGetData} >
+                      Tạo thời khóa biểu
+                    </button>
                     :
                     <button className="app-button b-radius-10 text-bold" onClick={handleGetData} >
                       Tạo TKB
-                </button>
+                    </button>
                 }
+                {
+                  isCollapse == false ?
+                    <button className="app-button b-radius-10 text-bold" onClick={handleCollapse} >Thu gọn</button>
+                    :
+                    <button className="app-button b-radius-10 text-bold" onClick={handleCancelCollapse} >Bỏ thu gọn</button>
+                }
+
               </div>
             </div>
 
@@ -245,7 +329,7 @@ function App() {
                       loading ?
                         <>
                           <div className="flex row mb-10" >
-                            <div className="text-bold p-10 " >{infoStudent.name}</div>
+                            <div className="text-bold p-10 ">{infoStudent.name}</div>
                             <div className="text-bold p-10" >{infoStudent.dob}</div>
                             <div className="text-bold p-10" >{infoStudent.class}</div>
                           </div>
@@ -261,26 +345,7 @@ function App() {
                               }
                             </tr>
                             {
-                              TKB.map((item, index) => {
-                                return (
-                                  <tr key={index} >
-                                    {
-                                      item.map((obj) => {
-                                        if (obj.stt == undefined) {
-                                          return <td></td>;
-                                        }
-                                        else {
-                                          return (
-                                            <td style={styleSubject} className="b-td b-radius-5 p-10 fw-500"  >
-                                              {renderSubject(obj)}
-                                            </td>
-                                          );
-                                        }
-                                      })
-                                    }
-                                  </tr>
-                                );
-                              })
+                              isCollapse ? renderTKB(TKB_Collapse) : renderTKB(TKB)
                             }
                           </table>
                         </> : ""
