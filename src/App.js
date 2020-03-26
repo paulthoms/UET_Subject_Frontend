@@ -22,7 +22,7 @@ const stylePending = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  background: "rgba(174, 174, 235, 0.5)",
+  background: "#ffffff",
   flexDirection: "column"
 }
 
@@ -289,7 +289,7 @@ function App() {
   function pendingWait() {
     return (
       <div style={stylePending} >
-        <div style={{ margin: "10px" }} className="color-blue-bold text-bold" > Đợi chút nhé ... </div>
+        <div style={{ margin: "10px" }} className="text-bold" > Đợi chút nhé ... </div>
         <div style={styleWheel} className="wheel color-blue" >
         </div>
       </div>
@@ -298,6 +298,7 @@ function App() {
 
   return (
     <div className="App">
+      {pendingWait()}
       {
         pending ? pendingWait() :
           <>
