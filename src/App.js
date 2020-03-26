@@ -203,12 +203,12 @@ function App() {
 
             <div className="flex center column w-100 mt-20" >
               <div className="px-1 text-bold" >
-                Your MSSV:
+                Mã số sinh viên UET:
               </div>
               <div className="flex center row w-100" >
                 <input className="app-input b-radius-10" onChange={(e) => { handChangeMssv(e) }} />
                 <button className="app-button b-radius-10 text-bold" onClick={handleGetData} >
-                  Get TKB
+                  Tạo thời khóa biểu
               </button>
               </div>
             </div>
