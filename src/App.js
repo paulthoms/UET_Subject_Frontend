@@ -29,6 +29,15 @@ const stylePending = {
 const styleWheel = {
   border: "10px solid",
   borderRadius: "50%",
+  borderStyle: "dashed",
+  position: "absolute"
+}
+
+const styleWheelGetingData = {
+  width: "100px",
+  height: "100px",
+  border: "10px solid",
+  borderRadius: "50%",
   borderStyle: "dashed"
 }
 
@@ -379,7 +388,7 @@ function App() {
               {
                 isGetingData ?
                   <>
-                    <div style={styleWheel} className="wheel color-blue" >
+                    <div style={styleWheelGetingData} className="wheel color-blue" >
                     </div>
                   </> :
                   <>

@@ -38,7 +38,7 @@ code {
 }
 
 .wheel {
-  position: absolute;
+  /* position: absolute; */
   height: 250px;
   width: 250px;
   /* background: rebeccapurple; */
