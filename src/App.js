@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useReducer } from 'react';
 // import logo from './logo.svg';
 import axios from 'axios';
 import './App.css';
@@ -27,8 +27,6 @@ const stylePending = {
 }
 
 const styleWheel = {
-  height: "100px",
-  width: "100px",
   border: "10px solid",
   borderRadius: "50%",
   borderStyle: "dashed"
@@ -89,6 +87,13 @@ function App() {
   const [sizeWidth, setSizeWidth] = useState(window.innerWidth);
   const [isCollapse, setIsCollapse] = useState(false);
   const [TKB_Collapse, setTKBCollapse] = useState([]);
+  const [optionCheckBox, setOptionCheckBox] = useReducer(
+    (state, newState) => ({ ...state, ...newState })
+    , {
+      time: true,
+      lesson: true,
+      room: true
+    });
 
   function getResizeScreen() {
     return window.innerWidth;
@@ -240,22 +245,31 @@ function App() {
     setIsCollapse(false);
   }
 
-  function getTime(lession){
+  function handleChangeCheckbox(e) {
+
+    const { name, checked } = e.target;
+
+    console.log(name, checked);
+    setOptionCheckBox({ [e.target.name]: e.target.checked });
+
+  }
+
+  function getTime(lession) {
     var arr = lession.split("-");
     // console.log(arr);
-    for(var i = 0; i<arr.length; i++){
-      arr[i] = parseInt(arr[i])+6;
+    for (var i = 0; i < arr.length; i++) {
+      arr[i] = parseInt(arr[i]) + 6;
     }
-    return arr[0]+"h-"+arr[1]+"h";
+    return arr[0] + "h-" + arr[1] + "h";
   }
 
   function renderSubject(obj) {
     return (
       <div>
         <div className="px-90-prs">{obj.name}</div>
-        <div className="px-90-prs" >Tiết: {obj.lession}</div>
-        <div className="px-90-prs" >Thời gian: {getTime(obj.lession)} </div>
-        <div className="px-90-prs" >Phòng:{obj.classRoom}</div>
+        {optionCheckBox.lesson ? <div className="px-90-prs" >Tiết: {obj.lession}</div> : ""}
+        {optionCheckBox.time ? <div className="px-90-prs" >Thời gian: {getTime(obj.lession)} </div> : ""}
+        {optionCheckBox.room ? <div className="px-90-prs" >Phòng:{obj.classRoom}</div> : ""}
         <div className="px-90-prs" >Nhóm: {obj.group}</div>
       </div>
     );
@@ -289,8 +303,38 @@ function App() {
   function pendingWait() {
     return (
       <div style={stylePending} >
-        <div style={{ margin: "10px" }} className="text-bold" > Đợi chút nhé ... </div>
-        <div style={styleWheel} className="wheel color-blue" >
+       <div class="group_loading">
+          <div style={{ margin: "10px" }} className="text-bold" > Đợi chút nhé ... </div>
+          <div style={styleWheel} className="wheel color-blue" >
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function optionDisplay() {
+    return (
+      <div className="flex row w-100 center flex-wrap" >
+        <div className="flex p-10 container">
+          <span className="text-bold" >Thời gian:</span>
+          <div className="checkbox_group" >
+            <input type="checkbox" name="time" checked={optionCheckBox.time} onChange={handleChangeCheckbox} />
+            <span className="b-td b-radius-5 checkMark" ></span>
+          </div>
+        </div>
+        <div className="flex p-10 container">
+          <span className="text-bold">Tiết:</span>
+          <div className="checkbox_group" >
+            <input type="checkbox" name="lesson" checked={optionCheckBox.lesson} onChange={handleChangeCheckbox} />
+            <span className="b-td b-radius-5 checkMark" ></span>
+          </div>
+        </div>
+        <div className="flex p-10 container">
+          <span className="text-bold">Phòng:</span>
+          <div className="checkbox_group" >
+            <input type="checkbox" name="room" checked={optionCheckBox.room} onChange={handleChangeCheckbox} />
+            <span className="b-td b-radius-5 checkMark" ></span>
+          </div>
         </div>
       </div>
     );
@@ -298,7 +342,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* {pendingWait()} */}
+      {pendingWait()}
       {
         pending ? pendingWait() :
           <>
@@ -347,6 +391,9 @@ function App() {
                             <div className="text-bold p-10" >{infoStudent.dob}</div>
                             <div className="text-bold p-10" >{infoStudent.class}</div>
                           </div>
+
+                          {optionDisplay()}
+
                           <table className="w-100" >
                             <tr>
 
