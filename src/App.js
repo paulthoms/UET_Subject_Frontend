@@ -85,7 +85,7 @@ function App() {
   const dispatch = useDispatch();
   const increase = useCallback(() => dispatch(increaseCount()), [dispatch]);
   const updateAllDataSubject = useCallback(() => dispatch(updateAllDataSubjectUET(allSubject)), [dispatch]);
-  const DAY_OF_WEEK = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday ","Sunday"];
+  const DAY_OF_WEEK = ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7","Chủ nhật"];
 
   useEffect(() => {
 
@@ -188,7 +188,7 @@ function App() {
   function pendingWait() {
     return (
       <div style={stylePending} >
-        <div style={{ margin: "10px" }} className="color-blue-bold text-bold" > Please wait ... </div>
+        <div style={{ margin: "10px" }} className="color-blue-bold text-bold" > Đợi chút nhé ... </div>
         <div style={styleWheel} className="wheel color-blue" >
         </div>
       </div>
@@ -251,7 +251,7 @@ function App() {
                                         }
                                         else {
                                           return (
-                                            <td style={styleSubject} className="b-td b-radius p-10 fw-500"  >
+                                            <td style={styleSubject} className="b-td b-radius-5 p-10 fw-500"  >
                                               {renderSubject(obj)}
                                             </td>
                                           );
