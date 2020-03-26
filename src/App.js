@@ -191,10 +191,10 @@ function App() {
   function renderSubject(obj) {
     return (
       <div>
-        <div>{obj.name}</div>
-        <div>Tiết: {obj.lession}</div>
-        <div>{obj.classRoom}</div>
-        <div>Nhóm: {obj.group}</div>
+        <div className = "px-90-prs">{obj.name}</div>
+        <div className = "px-90-prs" >Tiết: {obj.lession}</div>
+        <div className = "px-90-prs" >{obj.classRoom}</div>
+        <div className = "px-90-prs" >Nhóm: {obj.group}</div>
       </div>
     );
   }
@@ -255,7 +255,7 @@ function App() {
                               {
                                 DAY_OF_WEEK.map((item) => {
                                   return (
-                                    <td style={styleDayOfWeek} className="b-td b-radius-5 p-10 text-bold" >{item}</td>
+                                    <td style={styleDayOfWeek} className="b-td b-radius-5 p-10 text-bold px-90-prs" >{item}</td>
                                   );
                                 })
                               }

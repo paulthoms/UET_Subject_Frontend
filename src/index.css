@@ -57,11 +57,15 @@ code {
   font-size: 2rem;
 }
 
+.px-90-prs {
+  /* font-size: 90%; */
+}
+
 .w-100 {
   width: 100%;
 }
 
-.p-10{
+.p-10 {
   padding: 10px;
 }
 
@@ -69,30 +73,31 @@ code {
   margin-top: 20px;
 }
 
-.mt-10{
+.mt-10 {
   margin-top: 10px;
 }
 
-.mb-10{
+.mb-10 {
   margin-bottom: 10px;
 }
 
-.text-bold{
+.text-bold {
   font-weight: bold;
 }
 
-.fw-500{
+.fw-500 {
   font-weight: 500;
 }
 
-.b-radius-10{
+.b-radius-10 {
   border-radius: 10px;
 }
-.b-radius-5{
+
+.b-radius-5 {
   border-radius: 5px;
 }
 
-.color-blue{
+.color-blue {
   color: #8686ea;
 }
 
@@ -100,11 +105,11 @@ code {
   color: rgb(103, 121, 233);
 }
 
-.color-blue-bold{
+.color-blue-bold {
   color: rgb(37, 64, 238);
 }
 
-.b-td{
+.b-td {
   border: 2px solid #bfdebf!important;
 }
 
@@ -125,9 +130,14 @@ code {
   border: 2px solid #bfdebf;
 }
 
-@media screen and (max-width: 300px){
+@media screen and (max-width: 300px) {
   .app-button {
-   padding: 8px!important;
+    padding: 8px!important;
   }
-  
+}
+
+@media screen and (max-width: 400px) {
+  .px-90-prs {
+    font-size: 10px;
+  }
 }
