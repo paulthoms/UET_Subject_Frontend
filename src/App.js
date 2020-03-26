@@ -295,24 +295,26 @@ function App() {
               <div className="px-1 text-bold" >
                 Mã số sinh viên UET:
               </div>
-              <div className="flex center row w-100" >
+              <div className="flex center row w-100 flex-wrap" >
                 <input className="app-input b-radius-10" onChange={(e) => { handChangeMssv(e) }} />
-                {
-                  sizeWidth > 700 ?
-                    <button className="app-button b-radius-10 text-bold" onClick={handleGetData} >
-                      Tạo thời khóa biểu
+                <div>
+                  {
+                    sizeWidth > 700 ?
+                      <button className="app-button b-radius-10 text-bold" onClick={handleGetData} >
+                        Tạo thời khóa biểu
                     </button>
-                    :
-                    <button className="app-button b-radius-10 text-bold" onClick={handleGetData} >
-                      Tạo TKB
+                      :
+                      <button className="app-button b-radius-10 text-bold" onClick={handleGetData} >
+                        Tạo TKB
                     </button>
-                }
-                {
-                  isCollapse == false ?
-                    <button className="app-button b-radius-10 text-bold" onClick={handleCollapse} >Thu gọn</button>
-                    :
-                    <button className="app-button b-radius-10 text-bold" onClick={handleCancelCollapse} >Bỏ thu gọn</button>
-                }
+                  }
+                  {
+                    isCollapse == false ?
+                      <button className="app-button b-radius-10 text-bold" onClick={handleCollapse} >Thu gọn</button>
+                      :
+                      <button className="app-button b-radius-10 text-bold" onClick={handleCancelCollapse} >Bỏ thu gọn</button>
+                  }
+                </div>
 
               </div>
             </div>
