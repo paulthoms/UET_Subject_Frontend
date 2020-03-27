@@ -208,3 +208,21 @@ span.checkMark::after {
   position: relative;
   padding: 0px 20px 0px 2px;
 }
+
+@keyframes blur{
+  from{
+    opacity: 1;
+  }
+  to{
+    opacity: 0.2;
+  }
+}
+
+.rightArrow{
+  height: 10%;
+  width: 20%;
+  clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%);
+  background: #00bbff;
+  animation: blur 2s infinite;
+}
+

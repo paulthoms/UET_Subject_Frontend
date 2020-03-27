@@ -4,6 +4,7 @@ import axios from 'axios';
 import './App.css';
 import { useSelector, useDispatch } from "react-redux";
 import { increaseCount, updateAllDataSubjectUET } from "./redux/reducerAndAction";
+import RightArrow from './RightArrow';
 
 const qs = require("qs");
 
@@ -312,7 +313,7 @@ function App() {
   function pendingWait() {
     return (
       <div style={stylePending} >
-       <div class="group_loading">
+        <div class="group_loading">
           <div style={{ margin: "10px" }} className="text-bold" > Đợi chút nhé ... </div>
           <div style={styleWheel} className="wheel color-blue" >
           </div>
@@ -352,6 +353,11 @@ function App() {
   return (
     <div className="App">
       {/* {pendingWait()} */}
+      {
+        sizeWidth < 700 && loading == true ? <>
+          <RightArrow></RightArrow>
+        </> : <></>
+      }
       {
         pending ? pendingWait() :
           <>
