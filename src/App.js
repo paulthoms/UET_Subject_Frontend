@@ -404,7 +404,7 @@ function App() {
                           <div className="flex row mb-10" >
                             <div className="text-bold p-10 ">{infoStudent.name}</div>
                             <div className="text-bold p-10" >{infoStudent.dob}</div>
-                            <div className="text-bold p-10" >{infoStudent.class}</div>
+                            <div className="text-bold p-10" >{infoStudent.classUniversity}</div>
                           </div>
 
                           {optionDisplay()}
